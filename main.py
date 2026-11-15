@@ -10,7 +10,7 @@ def hash_password(pw: str) -> str:
 def check_password(pw: str, hashed: str) -> bool:
     return bcrypt.checkpw(pw.encode(), hashed.encode())
 
-#Responsible for getting scores, tracks, and penalties for a user AB #52
+'''Responsible for getting scores, tracks, and penalties for a user AB #52'''
 @app.get("/users/{user_id}/scores")
 def get_scores(user_id: int):
     result = (
@@ -23,7 +23,7 @@ def get_scores(user_id: int):
     )
     return result.data
 
-#Handles user login via username or driver license number AB #53
+'''Handles user login via username or driver license number AB #53'''
 class LoginRequest(BaseModel):
     identifier: str
     password: str
