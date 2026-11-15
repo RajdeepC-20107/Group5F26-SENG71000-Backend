@@ -22,3 +22,24 @@ def get_scores(user_id: int):
         .execute()
     )
     return result.data
+
+#Handles user login via username or driver license number AB #53
+class LoginRequest(BaseModel):
+    identifier: str
+    password: str
+
+@app.post("/login")
+def login(req: LoginRequest):
+    rows = []
+    for column in ("username", "driver_license_number"):
+        rows = supabase.table("Users").select("*").eq(column, req.identifier).limit(1).execute().data
+        if rows:
+            break
+    if not rows or not check_password(req.password, rows[0]["password_hash"]):
+        raise HTTPException(status_code=401, detail="Incorrect username or password")
+    user = rows[0]
+    return {
+        "user_id": user["user_id"],
+        "full_name": user["full_name"],
+        "profile_score": user["profile_score"],
+    }
