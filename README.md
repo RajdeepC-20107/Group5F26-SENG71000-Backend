@@ -18,13 +18,14 @@ FastAPI backend with a Supabase (PostgreSQL) database for the driver scoring app
 ## Python packages
 Listed in `requirements.txt` and installed in step 2 below.
 
-| Package | Purpose |
-|---|---|
-| `fastapi` | Web framework for the API |
-| `uvicorn[standard]` | Server that runs the FastAPI app |
-| `supabase` | Python client for the Supabase database |
-| `python-dotenv` | Loads secrets from the `.env` file |
-| `bcrypt` | Hashes and checks passwords |
+| Package             | Purpose                                 |
+|---------------------|-----------------------------------------|
+| `fastapi`           | Web framework for the API               |
+| `uvicorn[standard]` | Server that runs the FastAPI app        |
+| `supabase`          | Python client for the Supabase database |
+| `python-dotenv`     | Loads secrets from the `.env` file      |
+| `bcrypt`            | Hashes and checks passwords             |
+| `pytest`            | Runs normal and endpoint tests          |
 
 ## Setup
 
@@ -84,7 +85,7 @@ copy .env.example .env
 Then edit `.env`:
 ```
 SUPABASE_URL=https://<your-project-ref>.supabase.co
-SUPABASE_SERVICE_KEY=<your-secret-key>
+SUPABASE_SECRET_KEY=<your-secret-key>
 ```
 - Get both from **Project Settings → API Keys** in the Supabase dashboard.
 - The URL must end at `.supabase.co`, with no extra path such as `/rest/v1/`.
