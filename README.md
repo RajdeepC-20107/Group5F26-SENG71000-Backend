@@ -84,7 +84,7 @@ copy .env.example .env
 Then edit `.env`:
 ```
 SUPABASE_URL=https://<your-project-ref>.supabase.co
-SUPABASE_SERVICE_KEY=<your-secret-key>
+SUPABASE_SECRET_KEY=<your-secret-key>
 ```
 - Get both from **Project Settings → API Keys** in the Supabase dashboard.
 - The URL must end at `.supabase.co`, with no extra path such as `/rest/v1/`.
