@@ -32,9 +32,14 @@ class LoginRequest(BaseModel):
 
 @app.post("/login")
 def login(req: LoginRequest):
-    rows = []
-    for column in ("username", "driver_license_number"):
-        rows = supabase.table("Users").select("*").eq(column, req.identifier).limit(1).execute().data
+    rows = (
+        supabase.table("Users")
+        .select("*")
+        .or_(f"username.eq.{req.identifier},driver_license_number.eq.{req.identifier}")
+        .limit(1)
+        .execute()
+        .data
+    )
 
     if rows and len(rows) == 1:
         user = rows[0]
