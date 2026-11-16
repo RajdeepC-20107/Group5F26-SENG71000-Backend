@@ -14,6 +14,17 @@ def check_password(pw: str, hashed: str) -> bool:
 
 @app.get("/users/{user_id}/scores")
 def get_scores(user_id: int):
+    user = (
+        supabase.table("Users")
+        .select("user_id")
+        .eq("user_id", user_id)
+        .limit(1)
+        .execute()
+    )
+
+    if not user.data:
+        raise HTTPException(status_code=404, detail="User not found")
+
     result = (
         supabase.table("DriverScores")
         .select("score_id, score, scoring_notes, "
@@ -22,7 +33,8 @@ def get_scores(user_id: int):
         .eq("user_id", user_id)
         .execute()
     )
-    return result.data
+
+    return result.data or []
 
 """Handles user login via username or driver license number AB #53"""
 
