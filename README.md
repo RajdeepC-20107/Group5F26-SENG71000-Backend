@@ -18,13 +18,14 @@ FastAPI backend with a Supabase (PostgreSQL) database for the driver scoring app
 ## Python packages
 Listed in `requirements.txt` and installed in step 2 below.
 
-| Package | Purpose |
-|---|---|
-| `fastapi` | Web framework for the API |
-| `uvicorn[standard]` | Server that runs the FastAPI app |
-| `supabase` | Python client for the Supabase database |
-| `python-dotenv` | Loads secrets from the `.env` file |
-| `bcrypt` | Hashes and checks passwords |
+| Package             | Purpose                                 |
+|---------------------|-----------------------------------------|
+| `fastapi`           | Web framework for the API               |
+| `uvicorn[standard]` | Server that runs the FastAPI app        |
+| `supabase`          | Python client for the Supabase database |
+| `python-dotenv`     | Loads secrets from the `.env` file      |
+| `bcrypt`            | Hashes and checks passwords             |
+| `pytest`            | Runs normal and endpoint tests          |
 
 ## Setup
 
