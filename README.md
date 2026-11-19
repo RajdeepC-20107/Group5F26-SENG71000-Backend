@@ -108,6 +108,32 @@ Press `Ctrl+C` in the terminal to stop the server. Restart it after changing `.e
 |---|---|---|
 | POST | `/login` | Sign in with username or driver's license number and password |
 | GET | `/users/{user_id}/scores` | A user's scores with tracks and penalties |
+| POST | `/users/{user_id}/drives` | Upload a finished drive; the backend scores it and saves the track, score and penalties |
+
+### Uploading a drive
+The app sends the drive and the penalty events it detected. The backend calculates the score
+(rules in `scoring.py`).
+Times must include a timezone (e.g. `Z` for UTC), and every penalty must fall inside the drive.
+
+```json
+POST /users/1/drives
+{
+  "start_time": "2026-11-18T08:00:00Z",
+  "end_time": "2026-11-18T08:30:00Z",
+  "track_object": "tracks/sample.gpx.gz",
+  "penalties": [
+    {"occurred_at": "2026-11-18T08:10:00Z", "penalty_type": "hard_brake"}
+  ]
+}
+```
+Allowed `penalty_type` values: `hard_brake`, `hard_acceleration`, `sharp_turn`, `speeding`, `phone_use`.
+`track_object` and `penalties` are optional.
+
+Response (`201 Created`):
+```json
+{"score_id": 7, "track_id": 7, "score": 95, "scoring_notes": "1 harsh braking event", "profile_score": 81}
+```
+`profile_score` is the user's new average across all their drives.
 
 ## Troubleshooting
 
